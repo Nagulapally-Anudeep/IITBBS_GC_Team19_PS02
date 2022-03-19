@@ -1,4 +1,5 @@
 const Question = require("./../models/questionModel");
+const Answer = require("./../models/answerModel");
 
 exports.createQuestion = async (req, res, next) => {
   const questionContent = req.body.question;
@@ -20,7 +21,20 @@ exports.getAllQuestions = async (req, res, next) => {
   res.render("home", { questions: questions });
 };
 
-exports.getQuestion = async (req, res, next) => {};
+exports.getQuestion = async (req, res, next) => {
+  const question = await Question.findById(req.params.id);
+  const ansIDs = question.answerIDs;
+
+  let answers = ansIDs.map((ele) => {
+    const answer = await Answer.findById(ele);
+    return answer;
+  });
+
+  res.render("forum", {
+    question: question,
+    answers: answers,
+  });
+};
 
 exports.updateQuestion = async (req, res, next) => {};
 
