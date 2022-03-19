@@ -27,6 +27,7 @@ app.use(
     secret: "SECRET",
   })
 );
+app.use(express.json());
 
 app.use("/questions", questionRouter);
 app.use("/users", userRouter);
