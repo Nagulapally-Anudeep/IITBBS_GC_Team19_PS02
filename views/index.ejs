@@ -6,6 +6,8 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  
+
     <!-- Fuentes de Google -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
     <!-- Iconos -->
@@ -283,10 +285,62 @@
                 width: 320px;
             }
         }
+
+        /* header */
+        .header ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #111;
+        }
+
+        .header li {
+        float: left;
+        border-right:1px solid #bbb;
+        }
+
+        .header li:last-child {
+        border-right: none;
+        }
+
+        .header li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        .header li a:hover:not(.active) {
+        background-color: #111;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- header -->
+    <div class="header">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li style="float:right"><a href="#about">Logout</a></li>
+          <li style="float:right"><a href="#about"> username </a></li>
+          
+        </ul>
+    </div>
+
+    <!-- <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> -->
+
+    
+
     <div class="comments-container">
         <div class="col-md-6">
 
@@ -295,16 +349,16 @@
                     <div class="comment-main-level">
                         <!-- Avatar -->
                         <div class="comment-avatar"><img
-                                src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="">
+                                src="" alt="">
                         </div>
                         <!-- Contenedor del Comentario -->
                         <a href="#">
                             <div class="comment-box">
                                 <div class="comment-head">
-                                    <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin
+                                    <h6 class="comment-name"><a href="">Agustin
                                             Ortiz</a>
                                     </h6>
-                                    <span>hace 20 minutos</span>
+                                   
                                     <i class="fa fa-reply"></i>
                                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -368,13 +422,13 @@
                     <div class="comment-main-level">
                         <!-- Avatar -->
                         <div class="comment-avatar"><img
-                                src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt="">
+                                src="" alt="">
                         </div>
 
                         <div class="comment-box">
                             <div class="comment-head">
-                                <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-                                <span>hace 10 minutos</span>
+                                <h6 class="comment-name"><a href="">Lorena Rojero</a></h6>
+                    
                                 <i class="fa fa-reply"></i>
                                 <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
