@@ -9,10 +9,16 @@ exports.createQuestion = async (req, res, next) => {
     createdBy: createdUser,
     createdAt: Date.now(),
   };
+
+  await Question.create(question);
+
   res.redirect("/");
 };
 
-exports.getAllQuestions = async (req, res, next) => {};
+exports.getAllQuestions = async (req, res, next) => {
+  const questions = await Question.find();
+  res.render("home", { questions: questions });
+};
 
 exports.getQuestion = async (req, res, next) => {};
 
