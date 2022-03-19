@@ -100,5 +100,10 @@ app.get(
   }
 );
 
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("App listening on port " + port));
