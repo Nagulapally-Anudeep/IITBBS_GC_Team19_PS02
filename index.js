@@ -13,7 +13,6 @@ const passport = require("passport");
 const { ensureAuthenticated } = require("./middleware");
 const app = express();
 
-
 mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
 db.on("error", () => console.log("MongoDB connection error"));
@@ -32,19 +31,19 @@ app.use(express.json());
 app.use("/questions", questionRouter);
 app.use("/users", userRouter);
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/error", (req, res) => res.send("error logging in"));
-app.get("/", ensureAuthenticated, (req, res) => {
-	console.log(req.user);
-	res.render("index");
-})
+app.get("/", ensureAuthenticated, async (req, res) => {
+  console.log(req.user);
+  const questions = await Question.find();
+  res.render("home", { questions: questions, user: req.user });
+});
 
 app.get("/login", (req, res) => {
-	res.render("login");
-})
+  res.render("login");
+});
 
 passport.serializeUser(function (user, cb) {
   cb(null, user);
@@ -67,18 +66,18 @@ passport.use(
     function (accessToken, refreshToken, profile, done) {
       let userProfile = profile;
       process.nextTick(async () => {
-				const email = userProfile.emails[0].value;
-				const user = await User.findOne({email});
-				if (user){
-					return done(null, user);
-				}
-				const newUser = new User({
-					name: userProfile.displayName,
-					email: userProfile.emails[0].value,
-					profilePicture: userProfile.photos[0].value,
-				});
-				await newUser.save();
-				return done(null, newUser);
+        const email = userProfile.emails[0].value;
+        const user = await User.findOne({ email });
+        if (user) {
+          return done(null, user);
+        }
+        const newUser = new User({
+          name: userProfile.displayName,
+          email: userProfile.emails[0].value,
+          profilePicture: userProfile.photos[0].value,
+        });
+        await newUser.save();
+        return done(null, newUser);
       });
     }
   )

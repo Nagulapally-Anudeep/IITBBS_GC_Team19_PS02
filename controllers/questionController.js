@@ -1,5 +1,6 @@
 const Question = require("./../models/questionModel");
 const Answer = require("./../models/answerModel");
+const User = require("../models/userModel");
 
 exports.createQuestion = async (req, res, next) => {
   const questionContent = req.body.question;
@@ -16,10 +17,11 @@ exports.createQuestion = async (req, res, next) => {
   res.redirect("/");
 };
 
-exports.getAllQuestions = async (req, res, next) => {
-  const questions = await Question.find();
-  res.render("home", { questions: questions });
-};
+// exports.getAllQuestions = async (req, res, next) => {
+//   const questions = await Question.find();
+//   console.log("hiiii", "\n\n", req.user);
+//   res.render("home", { questions: questions, user: req.user });
+// };
 
 exports.getQuestion = async (req, res, next) => {
   const question = await Question.findById(req.params.id);
