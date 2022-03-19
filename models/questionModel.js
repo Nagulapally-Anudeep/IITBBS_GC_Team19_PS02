@@ -16,6 +16,7 @@ const questionSchema = new mongoose.Schema({
   answerIDs: [String],
   isBlacklisted: {
     type: Boolean,
+    default: false,
   },
   upVotes: {
     type: Number,
