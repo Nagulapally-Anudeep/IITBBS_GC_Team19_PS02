@@ -133,6 +133,11 @@ passport.use(
       let userProfile = profile;
       process.nextTick(async () => {
         const email = userProfile.emails[0].value;
+        if(!email.endsWith("@iitbbs.ac.in")){
+          return done(null, false, {
+            error: "Only IITBBS students can login",
+          });
+        }
         const user = await User.findOne({ email });
         if (user) {
           return done(null, user);
