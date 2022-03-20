@@ -353,7 +353,7 @@
                     <div class="comment-main-level">
                         <!-- Avatar -->
                         <div class="comment-avatar"><img
-                                src="<%=user.profilePicture%>" alt="">
+                                src="<%=question.createdByPic%>" alt="">
                         </div>
                         <!-- Contenedor del Comentario -->
                         <a href="#">
@@ -363,8 +363,8 @@
                                     </h6>
                                    
                                     <i class="fa fa-reply"></i>
-                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    <i class="fa fa-thumbs-down" aria-hidden="true"><span><%=question.upVotes%></span></i>
+                                    <i class="fa fa-thumbs-up" aria-hidden="true"><span><%=question.downVotes%></span></i>
                                 </div>
                                 <div class="comment-content">
                                     <%= question.questionContent %>

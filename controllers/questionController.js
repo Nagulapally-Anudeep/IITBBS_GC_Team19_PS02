@@ -13,11 +13,14 @@ exports.createQuestion = async (req, res, next) => {
     createdBy: createdUserID,
     createdByName: createdUser.name,
     createdAt: Date.now(),
+    createdByPic: createdUser.profilePicture,
   };
 
   console.log(question);
 
-  await Question.create(question);
+  const questionCreated = await Question.create(question);
+  const userQuestionsList = createdUser.questionIDs;
+  userQuestionsList.push(questionCreated._id);
 
   res.redirect("/");
 };

@@ -13,6 +13,10 @@ const questionSchema = new mongoose.Schema({
     //user name
     type: String,
   },
+  createdByPic: {
+    // user pic
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
