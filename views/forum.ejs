@@ -336,13 +336,6 @@
         </ul>
     </div>
 
-    <!-- form -->
-    <form class="posting" action="/answers" method="post">
-        <input type="text" id="fname" name="postContent" placeholder="Post Answer"><br>
-        <input type="hidden" name="parentQuestion" value="<%=question._id%>">
-        <button type="submit" name="answerSubmit" value="<%=user._id%>">Submit</button>
-    </form> 
-
     
     <!-- question & answers -->
 
@@ -361,7 +354,6 @@
                             <div class="comment-head">
                                 <h6 class="comment-name"><a href="#"><%= question.createdByName %></a>
                                 </h6>
-                                <i class="fa fa-reply"></i>
                                 <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                             </div>
@@ -400,6 +392,13 @@
             </ul>
         </div>
     </div>
+
+    <!-- form -->
+    <form class="posting" action="/answers" method="post">
+        <input type="text" id="fname" name="postContent" placeholder="Post Answer"><br>
+        <input type="hidden" name="parentQuestion" value="<%=question._id%>">
+        <button type="submit" name="answerSubmit" value="<%=user._id%>">Submit</button>
+    </form> 
     
 
 </body>

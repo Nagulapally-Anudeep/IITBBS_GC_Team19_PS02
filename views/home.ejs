@@ -362,7 +362,10 @@
                                     <h6 class="comment-name"><a href=""><%= question.createdByName %></a>
                                     </h6>
                                    
-                                    <i class="fa fa-reply"></i>
+                                    <% if(user.isAdmin){%>
+                                        <a href="/"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                                    <% } %>
+
                                     <i class="fa fa-thumbs-down" aria-hidden="true"><span><%=question.upVotes%></span></i>
                                     <i class="fa fa-thumbs-up" aria-hidden="true"><span><%=question.downVotes%></span></i>
                                 </div>

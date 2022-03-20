@@ -9,6 +9,7 @@ const { ensureAuthenticated } = require("../middleware");
 // });
 
 router.post("/", questionController.createQuestion);
+
 // router.route("/:id").get(questionController.getQuestion);
 
 module.exports = router;

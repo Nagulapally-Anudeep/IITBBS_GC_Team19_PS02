@@ -52,10 +52,6 @@ exports.createQuestion = async (req, res, next) => {
 //   });
 // };
 
-exports.updateQuestion = async (req, res, next) => {};
-
-exports.deleteQuestion = async (req, res, next) => {};
-
 exports.whiteListQuestion = async (req, res, next) => {};
 
 exports.blackListQuestion = async (req, res, next) => {};

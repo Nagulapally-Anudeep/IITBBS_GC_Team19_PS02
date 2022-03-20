@@ -5,14 +5,18 @@ const questionRouter = require("./routes/questionRoutes");
 const answerRouter = require("./routes/answerRoutes");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const Answer = require("./models/answerModel");
 const Question = require("./models/questionModel");
 const User = require("./models/userModel");
 
-const session = require("express-session");
 const passport = require("passport");
+const cookieParser = require("cookie-parser");
 const { ensureAuthenticated } = require("./middleware");
+const { options } = require("./routes/userRoutes");
+
 const app = express();
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -20,14 +24,18 @@ const db = mongoose.connection;
 db.on("error", () => console.log("MongoDB connection error"));
 db.once("open", () => console.log("MongoDB connected"));
 
-app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.use(cookieParser("abcd"));
 
 app.use(
   session({
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: "SECRET",
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
   })
 );
 app.use(express.json());
@@ -38,6 +46,10 @@ app.use("/answers", answerRouter);
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 
 app.get("/error", (req, res) => res.send("error logging in"));
 app.get("/", ensureAuthenticated, async (req, res) => {
@@ -91,11 +103,20 @@ app.get("/login", (req, res) => {
 });
 
 passport.serializeUser(function (user, cb) {
-  cb(null, user);
+  cb(null, user._id);
 });
 
-passport.deserializeUser(function (user, cb) {
-  cb(null, user);
+passport.deserializeUser(function (_id, cb) {
+  // cb(null, user);
+  User.findById(_id, (err, user) => {
+    if (err) {
+      cb(null, false, {
+        error: err,
+      });
+    } else {
+      cb(null, user);
+    }
+  });
 });
 
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
@@ -139,6 +160,7 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/error",
+    session: true,
   }),
   function (req, res) {
     res.redirect("/");
