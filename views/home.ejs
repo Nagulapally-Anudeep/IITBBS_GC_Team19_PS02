@@ -366,8 +366,12 @@
                                         <a href="/"><i class="fa fa-ban" aria-hidden="true"></i></a>
                                     <% } %>
 
-                                    <i class="fa fa-thumbs-down" aria-hidden="true"><span><%=question.upVotes%></span></i>
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"><span><%=question.downVotes%></span></i>
+                                    <a href="" onclick=upvote()>
+                                        <i class="fa fa-thumbs-down" aria-hidden="true"><span><%=question.upVotes%></span></i>
+                                    </a>
+                                    <a href="" onclick=downvote()>
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"><span><%=question.downVotes%></span></i>
+                                    </a>
                                 </div>
                                 <a href="/question/<%= question._id %>">
                                 <div class="comment-content">
@@ -382,6 +386,35 @@
             </ul>
         </div>
     </div>
+    <script>
+        function upVote(){
+            //post request using fetch
+            fetch('/question/upvote/<%= question._id %>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    questionId: '<%= question._id %>',
+                    userID: '<%= user._id %>'
+                })
+            })
+        }
+
+        function downVote(){
+            //post request using fetch
+            fetch('/question/downvote/<%= question._id %>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    questionId: '<%= question._id %>',
+                    userID: '<%= user._id %>'
+                })
+            })
+        }
+    </script>
 </body>
 
 </html>
