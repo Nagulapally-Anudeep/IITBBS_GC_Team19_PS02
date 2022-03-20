@@ -10,6 +10,14 @@ const answerSchema = new mongoose.Schema({
     type: String,
     required: [true, "Answer should have unique user"],
   },
+  createdByName: {
+    // user name
+    type: String,
+  },
+  createdByPic: {
+    // user pic
+    type: String,
+  },
   parentQuestionID: {
     type: String,
     required: [true, "Answer should have a unique parent question"],

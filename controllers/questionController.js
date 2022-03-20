@@ -37,20 +37,20 @@ exports.createQuestion = async (req, res, next) => {
 //   res.render("home", { questions: questions, user: req.user });
 // };
 
-exports.getQuestion = async (req, res, next) => {
-  const question = await Question.findById(req.params.id);
-  const ansIDs = question.answerIDs;
+// exports.getQuestion = async (req, res, next) => {
+//   const question = await Question.findById(req.params.id);
+//   const ansIDs = question.answerIDs;
 
-  let answers = ansIDs.map(async (ele) => {
-    const answer = await Answer.findById(ele);
-    return answer;
-  });
+//   let answers = ansIDs.map(async (ele) => {
+//     const answer = await Answer.findById(ele);
+//     return answer;
+//   });
 
-  res.render("forum", {
-    question: question,
-    answers: answers,
-  });
-};
+//   res.render("forum", {
+//     question: question,
+//     answers: answers,
+//   });
+// };
 
 exports.updateQuestion = async (req, res, next) => {};
 

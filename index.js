@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const userRouter = require("./routes/userRoutes");
 const questionRouter = require("./routes/questionRoutes");
+const answerRouter = require("./routes/answerRoutes");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
@@ -33,6 +34,7 @@ app.use(express.json());
 
 app.use("/questions", questionRouter);
 app.use("/users", userRouter);
+app.use("/answers", answerRouter);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -42,6 +44,31 @@ app.get("/", ensureAuthenticated, async (req, res) => {
   console.log(req.user);
   const questions = await Question.find();
   res.render("home", { questions: questions, user: req.user });
+});
+
+app.get("/question/:id", async (req, res) => {
+  const question = await Question.findById(req.params.id);
+  const ansIDs = question.answerIDs;
+
+  let answersPromises = ansIDs.map((ele) => {
+    const answer = Answer.findById(ele);
+    return answer;
+  });
+
+  const answers = await Promise.all(answersPromises);
+  // let answers = [];
+  // ansIDs.forEach(async function (itemID) {
+  //   const answer = await Answer.findById(itemID);
+  //   answers.push(answer);
+  // });
+
+  // console.log(answers, "\n\n", answersPromises);
+
+  res.render("forum", {
+    user: req.user,
+    question: question,
+    answers: answers,
+  });
 });
 
 // app.post("/test", async (req, res) => {

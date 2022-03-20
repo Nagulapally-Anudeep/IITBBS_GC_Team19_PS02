@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const questionController = require("../controllers/questionController");
+const answerController = require("../controllers/answerController");
 const { ensureAuthenticated } = require("../middleware");
 
 // router.route("/").get(ensureAuthenticated, questionController.getAllQuestions);
@@ -8,7 +8,6 @@ const { ensureAuthenticated } = require("../middleware");
 //   res.send("Hello world");
 // });
 
-router.post("/", questionController.createQuestion);
-// router.route("/:id").get(questionController.getQuestion);
+router.post("/", answerController.createAnswer);
 
 module.exports = router;
