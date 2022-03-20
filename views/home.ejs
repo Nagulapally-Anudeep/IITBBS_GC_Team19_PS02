@@ -315,6 +315,12 @@
         .header li a:hover:not(.active) {
         background-color: #111;
         }
+
+        /* form */
+        .posting {
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -323,21 +329,18 @@
     <!-- header -->
     <div class="header">
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li style="float:right"><a href="#about">Logout</a></li>
+          <li><a href="/">Home</a></li>
+          <li style="float:right"><a href="/logout">Logout</a></li>
           <li style="float:right"><a href="#about"> <%= user.name %> </a></li>
           
         </ul>
     </div>
 
-    <!-- <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form> -->
+    <!-- form -->
+    <form class="posting" action="/questions" method="post">
+        <input type="text" id="fname" name="postContent" placeholder="Post Question"><br>
+        <button type="submit" name="questionSubmit" value="<%=user._id%>">Submit</button>
+    </form> 
 
     
 
@@ -345,18 +348,18 @@
         <div class="col-md-6">
 
             <ul id="comments-list" class="comments-list">
+                <% questions.forEach(function(question){ %>
                 <li>
                     <div class="comment-main-level">
                         <!-- Avatar -->
                         <div class="comment-avatar"><img
-                                src="" alt="">
+                                src="<%=user.profilePicture%>" alt="">
                         </div>
                         <!-- Contenedor del Comentario -->
                         <a href="#">
                             <div class="comment-box">
                                 <div class="comment-head">
-                                    <h6 class="comment-name"><a href="">Agustin
-                                            Ortiz</a>
+                                    <h6 class="comment-name"><a href=""><%= question.createdByName %></a>
                                     </h6>
                                    
                                     <i class="fa fa-reply"></i>
@@ -364,81 +367,13 @@
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                 </div>
                                 <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure
-                                    laudantium vitae, praesentium optio, sapiente distinctio illo?
+                                    <%= question.questionContent %>
                                 </div>
                             </div>
                         </a>
                     </div>
-
-                    <!-- <ul class="comments-list reply-list">
-                        <li>
-                
-                            <div class="comment-avatar"><img
-                                    src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg"
-                                    alt="">
-                            </div>
-
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 class="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-                                    <span>hace 10 minutos</span>
-
-                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                </div>
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure
-                                    laudantium vitae, praesentium optio, sapiente distinctio illo?
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="comment-avatar"><img
-                                    src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"
-                                    alt="">
-                            </div>
-
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin
-                                            Ortiz</a></h6>
-                                    <span>hace 10 minutos</span>
-                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                </div>
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure
-                                    laudantium vitae, praesentium optio, sapiente distinctio illo?
-                                </div>
-                            </div>
-                        </li>
-                    </ul> -->
                 </li>
-
-                <li>
-                    <div class="comment-main-level">
-                        <!-- Avatar -->
-                        <div class="comment-avatar"><img
-                                src="" alt="">
-                        </div>
-
-                        <div class="comment-box">
-                            <div class="comment-head">
-                                <h6 class="comment-name"><a href="">Lorena Rojero</a></h6>
-                    
-                                <i class="fa fa-reply"></i>
-                                <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                            </div>
-                            <div class="comment-content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure
-                                laudantium vitae, praesentium optio, sapiente distinctio illo?
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                <%  }); %>
             </ul>
         </div>
     </div>

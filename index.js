@@ -3,6 +3,7 @@ const express = require("express");
 const userRouter = require("./routes/userRoutes");
 const questionRouter = require("./routes/questionRoutes");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const Answer = require("./models/answerModel");
 const Question = require("./models/questionModel");
@@ -19,6 +20,8 @@ db.on("error", () => console.log("MongoDB connection error"));
 db.once("open", () => console.log("MongoDB connected"));
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   session({
     resave: false,
@@ -40,6 +43,21 @@ app.get("/", ensureAuthenticated, async (req, res) => {
   const questions = await Question.find();
   res.render("home", { questions: questions, user: req.user });
 });
+
+// app.post("/test", async (req, res) => {
+//   const questionContent = req.body.postContent;
+//   const createdUser = req.user._id;
+
+//   console.log(req.body);
+
+//   const question = {
+//     questionContent: questionContent,
+//     createdBy: createdUser,
+//     createdAt: Date.now(),
+//   };
+
+//   console.log(question);
+// });
 
 app.get("/login", (req, res) => {
   res.render("login");

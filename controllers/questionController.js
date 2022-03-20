@@ -3,14 +3,19 @@ const Answer = require("./../models/answerModel");
 const User = require("../models/userModel");
 
 exports.createQuestion = async (req, res, next) => {
-  const questionContent = req.body.question;
-  const createdUser = req.user._id;
+  console.log(req.body);
+  const questionContent = req.body.postContent;
+  const createdUserID = req.body.questionSubmit;
+  const createdUser = await User.findById(createdUserID);
 
   const question = {
     questionContent: questionContent,
-    createdBy: createdUser,
+    createdBy: createdUserID,
+    createdByName: createdUser.name,
     createdAt: Date.now(),
   };
+
+  console.log(question);
 
   await Question.create(question);
 

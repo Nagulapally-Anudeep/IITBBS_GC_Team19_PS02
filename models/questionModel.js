@@ -9,6 +9,10 @@ const questionSchema = new mongoose.Schema({
     //user id
     type: String,
   },
+  createdByName: {
+    //user name
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
