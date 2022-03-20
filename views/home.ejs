@@ -366,10 +366,10 @@
                                         <a href="/"><i class="fa fa-ban" aria-hidden="true"></i></a>
                                     <% } %>
 
-                                    <a href="" onclick=upvote()>
+                                    <a href="" onclick="upvote( <%= question._id %> )">
                                         <i class="fa fa-thumbs-down" aria-hidden="true"><span><%=question.upVotes%></span></i>
                                     </a>
-                                    <a href="" onclick=downvote()>
+                                    <a href="" onclick="downvote( <%= question._id %> )">
                                         <i class="fa fa-thumbs-up" aria-hidden="true"><span><%=question.downVotes%></span></i>
                                     </a>
                                 </div>
@@ -387,29 +387,28 @@
         </div>
     </div>
     <script>
-        function upVote(){
+        function upVote(questionId){
             //post request using fetch
-            fetch('/question/upvote/<%= question._id %>', {
+            fetch(`/questions/upvote/${questionId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    questionId: '<%= question._id %>',
+                    questionId,
                     userID: '<%= user._id %>'
                 })
             })
         }
-
-        function downVote(){
+        function downvote(questionId){
             //post request using fetch
-            fetch('/question/downvote/<%= question._id %>', {
+            fetch(`/questions/downvote/${questionId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    questionId: '<%= question._id %>',
+                    questionId,
                     userID: '<%= user._id %>'
                 })
             })
