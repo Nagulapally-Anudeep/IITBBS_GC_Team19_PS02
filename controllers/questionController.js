@@ -56,6 +56,46 @@ exports.whiteListQuestion = async (req, res, next) => {};
 
 exports.blackListQuestion = async (req, res, next) => {};
 
-exports.upVoteQuestion = async (req, res, next) => {};
+exports.upVoteQuestion = async (req, res, next) => {
+  const question = await Question.findById(req.params.id);
+  // const user = await User.findById(req.body.userID);
+  if(question.downVotedBy.includes(req.body.userID)){
+    question.downVotedBy.pop(req.body.userID);
+    await Question.findByIdAndUpdate(question._id, {$set: {downVotedBy}}, { new: true });
+    await Question.findByIdAndUpdate(question._id, {$inc: {downVotes: -1}, $}, { new: true });
+  }
+  if(!question.upVotedBy.includes(req.body.userID)){
+    question.upVotedBy.push(req.body.userID);
+    await Question.findByIdAndUpdate(question._id, {$set: {upVotedBy}}, { new: true });
+    await Question.findByIdAndUpdate(question._id, {$inc: {upVotes: 1}, $}, { new: true });
+    
+  }else{
+    question.upVotedBy.pop(req.body.userID);
+    await Question.findByIdAndUpdate(question._id, {$set: {upVotedBy}}, { new: true });
+    await Question.findByIdAndUpdate(question._id, {$inc: {upVotes: -1}, $}, { new: true });
+  }
 
-exports.downVoteQuestion = async (req, res, next) => {};
+  res.redirect("/");
+};
+
+exports.downVoteQuestion = async (req, res, next) => {
+  const question = await Question.findById(req.params.id);
+  // const user = await User.findById(req.body.userID);
+  if(question.upVotedBy.includes(req.body.userID)){
+    question.upVotedBy.pop(req.body.userID);
+    await Question.findByIdAndUpdate(question._id, {$set: {upVotedBy}}, { new: true });
+    await Question.findByIdAndUpdate(question._id, {$inc: {upVotes: -1}, $}, { new: true });
+  }
+  if(!question.downVotedBy.includes(req.body.userID)){
+    question.downVotedBy.push(req.body.userID);
+    await Question.findByIdAndUpdate(question._id, {$set: {downVotedBy}}, { new: true });
+    await Question.findByIdAndUpdate(question._id, {$inc: {downVotes: 1}, $}, { new: true });
+    
+  }else{
+    question.downVotedBy.pop(req.body.userID);
+    await Question.findByIdAndUpdate(question._id, {$set: {downVotedBy}}, { new: true });
+    await Question.findByIdAndUpdate(question._id, {$inc: {downVotes: -1}, $}, { new: true });
+  }
+
+  res.redirect("/");
+};

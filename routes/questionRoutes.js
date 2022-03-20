@@ -9,6 +9,7 @@ const { ensureAuthenticated } = require("../middleware");
 // });
 
 router.post("/", questionController.createQuestion);
+router.post("/upvote/:id", questionController.upVoteQuestion);
 
 // router.route("/:id").get(questionController.getQuestion);
 
