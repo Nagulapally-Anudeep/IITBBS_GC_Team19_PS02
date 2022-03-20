@@ -28,6 +28,15 @@ exports.createAnswer = async (req, res, next) => {
     { new: true }
   );
 
+  const userAnswerList = createdUser.answerIDs;
+  userAnswerList.push(answerCreated._id);
+
+  await User.findByIdAndUpdate(
+    createdUserID,
+    { $set: { answerIDs: userAnswerList } },
+    { new: true }
+  );
+
   res.redirect(`/question/${parentQuestionID}`);
 };
 

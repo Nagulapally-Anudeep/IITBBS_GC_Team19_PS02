@@ -355,8 +355,8 @@
                         <div class="comment-avatar"><img
                                 src="<%=question.createdByPic%>" alt="">
                         </div>
-                        <!-- Contenedor del Comentario -->
-                        <a href="#">
+                        
+                        
                             <div class="comment-box">
                                 <div class="comment-head">
                                     <h6 class="comment-name"><a href=""><%= question.createdByName %></a>
@@ -366,11 +366,13 @@
                                     <i class="fa fa-thumbs-down" aria-hidden="true"><span><%=question.upVotes%></span></i>
                                     <i class="fa fa-thumbs-up" aria-hidden="true"><span><%=question.downVotes%></span></i>
                                 </div>
+                                <a href="/question/<%= question._id %>">
                                 <div class="comment-content">
                                     <%= question.questionContent %>
                                 </div>
+                            </a>
                             </div>
-                        </a>
+                        
                     </div>
                 </li>
                 <%  }); %>
