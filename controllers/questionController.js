@@ -22,6 +22,12 @@ exports.createQuestion = async (req, res, next) => {
   const userQuestionsList = createdUser.questionIDs;
   userQuestionsList.push(questionCreated._id);
 
+  await User.findByIdAndUpdate(
+    createdUserID,
+    { $set: { questionIDs: userQuestionsList } },
+    { new: true }
+  );
+
   res.redirect("/");
 };
 
